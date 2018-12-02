@@ -6,14 +6,15 @@ import org.springframework.util.StringUtils;
 import pl.substringapp.substringapp.exceptions.ArgumentMissingException;
 import pl.substringapp.substringapp.model.AppArguments;
 import pl.substringapp.substringapp.exceptions.MultipleArgumentValueException;
+import pl.substringapp.substringapp.utils.interfaces.ArgumentUtil;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
-public class ArgumentUtil {
+public class ArgumentUtilImpl implements ArgumentUtil {
 
 
+    @Override
     public AppArguments parseArguments(ApplicationArguments args) throws MultipleArgumentValueException, ArgumentMissingException {
         AppArguments applicationArgs = null;
         String input = parseArgument(args, "input");

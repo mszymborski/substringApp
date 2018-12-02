@@ -1,28 +1,21 @@
 package pl.substringapp.substringapp.model;
 
+//TODO Needs Refactor, to be more expandable, less modifiable
 public class AppArguments {
 
-    private String input;
-    private String pattern;
+    private AppArgument input;
+    private AppArgument pattern;
 
-    public AppArguments(String input, String pattern) {
-        this.input = input;
-        this.pattern = pattern;
+    public AppArguments(String input, String pattern){
+        this.input = new AppArgument(input);
+        this.pattern = new AppArgument(pattern);
     }
 
-    public String getInput() {
+    public AppArgument getInput() {
         return input;
     }
 
-    public void setInput(String input) {
-        this.input = input;
-    }
-
-    public String getPattern() {
+    public AppArgument getPattern() {
         return pattern;
-    }
-
-    public void setPattern(String pattern) {
-        this.pattern = pattern;
     }
 }
