@@ -20,7 +20,7 @@ public class StringUtilImpl implements StringUtil {
         while (patternsIterator < patternList.size()){
             String pattern = patternList.get(patternsIterator);
             inputIterator = findFirstCharOccurrence(pattern.charAt(0), inputArgument.getArgument(), inputIterator);
-            if(inputIterator >= inputLength){
+            if(inputIterator + pattern.length() > inputLength){
                 return false;
             }
             if(checkPattern(inputArgument, inputIterator, pattern)){
@@ -28,9 +28,6 @@ public class StringUtilImpl implements StringUtil {
                 inputIterator += pattern.length();
             } else {
                 ++inputIterator;
-            }
-            if(inputIterator >= inputLength){
-                return false;
             }
         }
         return true;
@@ -86,12 +83,11 @@ public class StringUtilImpl implements StringUtil {
                 case '*':
                     return trimAsterisk(pattern, iterator);
                 case '\\':
-                    if (iterator + 1 < pattern.length()){
-                        if(pattern.charAt(iterator + 1) == '*' || pattern.charAt(iterator + 1) == '\\'){
+                    if (iterator + 1 < pattern.length() &&
+                        pattern.charAt(iterator + 1) == '*'){
                             patternItem.append(pattern.charAt(iterator + 1));
                             ++iterator;
                             break;
-                        }
                     }
                 default:
                     patternItem.append(pattern.charAt(iterator));
