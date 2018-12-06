@@ -18,10 +18,27 @@ public class StringUtilTest {
     @Test
     @Parameters(method = "prepareContainsTestPositiveParams")
     public void containsTestPositive(String inputString, String patternString){
+
+        Assert.assertTrue(containsTest(inputString, patternString));
+    }
+
+    @Test
+    @Parameters(method = "prepareContainsTestNegativeParams")
+    public void containsTestNegative(String inputString, String patternString){
+        Assert.assertFalse(containsTest(inputString, patternString));
+    }
+
+    private boolean containsTest(String inputString, String patternString){
         AppArgument input = new AppArgument(inputString);
         AppArgument pattern = new AppArgument(patternString);
+        return stringUtil.contains(input, pattern);
+    }
 
-        Assert.assertTrue(stringUtil.contains(input, pattern));
+    private Object[] prepareContainsTestNegativeParams(){
+        return new Object[]{
+                new Object[]{"\\\\abcde*sdaf\\\\*s", "\\\\a*\\\\*sda"},
+                new Object[]{"abcdefgh","fghj"}
+        };
     }
 
     private Object[] prepareContainsTestPositiveParams(){
@@ -38,7 +55,11 @@ public class StringUtilTest {
                 new Object[]{input, "x*y"},
                 new Object[]{input, "xy*"},
                 new Object[]{input, "\\*123456"},
-                new Object[]{input2, "pofd"}
+                new Object[]{input2, "pofd"},
+                new Object[]{" ", " "},
+                new Object[]{"\\", "\\"},
+                new Object[]{"*", "\\*"},
+                new Object[]{"123*45", "1*5"},
         };
     }
 
