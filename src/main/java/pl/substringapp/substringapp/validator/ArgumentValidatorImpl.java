@@ -1,9 +1,11 @@
 package pl.substringapp.substringapp.validator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import pl.substringapp.substringapp.model.AppArgument;
 import pl.substringapp.substringapp.constants.MessagesConstants;
+import pl.substringapp.substringapp.model.AppArgument;
 import pl.substringapp.substringapp.utils.interfaces.StringUtil;
 import pl.substringapp.substringapp.validator.interfaces.ArgumentValidator;
 
@@ -12,6 +14,8 @@ import java.util.List;
 
 @Component
 public class ArgumentValidatorImpl implements ArgumentValidator {
+
+    private static final Logger logger = LoggerFactory.getLogger(ArgumentValidatorImpl.class);
 
     private StringUtil stringUtil;
 
@@ -26,7 +30,7 @@ public class ArgumentValidatorImpl implements ArgumentValidator {
         checkArgumentValueEmpty(input, messages, "input");
         if(stringUtil.trimAsterisk(pattern.getArgument(),0) < pattern.getArgument().length()){
             List<String> patternList = stringUtil.splitPattern(pattern.getArgument());
-            if(patternList.size() == 0){
+            if(patternList.isEmpty()){
                 messages.add(MessagesConstants.EMPTY_VALUE_OF_ARGUMENT + "pattern");
             }
             for (String p : patternList){
@@ -37,7 +41,7 @@ public class ArgumentValidatorImpl implements ArgumentValidator {
             }
         }
         if(!messages.isEmpty()){
-            System.out.println(MessagesConstants.ARGUMENT_VALIDATION_ERROR + messages);
+            logger.info(MessagesConstants.ARGUMENT_VALIDATION_ERROR, messages);
             return false;
         }
         return true;

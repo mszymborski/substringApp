@@ -16,7 +16,7 @@ public class SubstringApp implements ApplicationRunner {
 	public static void main(String[] args) {
 		SpringApplication application = new SpringApplication();
 		application.setBannerMode(Banner.Mode.OFF);
-		application.run(args);
+		application.run(SubstringApp.class, args);
 	}
 
 	@Override

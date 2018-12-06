@@ -32,9 +32,9 @@ public class InputService {
             AppArguments appArguments = argumentUtil.parseArguments(args);
             if (argumentValidator.validate(appArguments.getInput(), appArguments.getPattern())){
                 if(stringUtil.contains(appArguments.getInput(), appArguments.getPattern())){
-                    System.out.println(MessagesConstants.PATTERN_IS_A_SUBSTRING_OF_INPUT);
+                    logger.info(MessagesConstants.PATTERN_IS_A_SUBSTRING_OF_INPUT);
                 } else {
-                    System.out.println(MessagesConstants.PATTERN_IS_NOT_A_SUBSTRING_OF_INPUT);
+                    logger.info(MessagesConstants.PATTERN_IS_NOT_A_SUBSTRING_OF_INPUT);
                 }
                 System.exit(0);
             }
@@ -43,7 +43,7 @@ public class InputService {
             }
 
         } catch (MultipleArgumentValueException | ArgumentMissingException e) {
-            System.out.print(e.getMessage());
+            logger.error(e.getMessage());
             System.exit(1);
         }
 
